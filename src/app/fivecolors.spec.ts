@@ -4,19 +4,19 @@ import {
 } from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import { App } from './app.component';
+import { Fivecolors } from './fivecolors.component';
 import { AppState } from './app.service';
 
-describe('App', () => {
+describe('Fivecolors', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       AppState,
-      App
+      Fivecolors
     ]}));
 
-  it('should have a url', inject([ App ], (app: App) => {
-    expect(app.url).toEqual('https://twitter.com/AngularClass');
+  it('should have a url', inject([ Fivecolors ], (fivecolors: Fivecolors) => {
+    expect(fivecolors.url).toEqual('https://moon.e-pedion.com/fivecolors/web');
   }));
 
 });

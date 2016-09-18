@@ -14,4 +14,9 @@ export const ROUTES: Routes = [
     path: 'detail', loadChildren: () => System.import('./+detail')
   },
   { path: '**',    component: NoContent },
+  /*
+  {path: "/invetory", name: "InventoryManager", component: InventoryManagerComponent, useAsDefault: true},
+  {path: "/deck", name: "DeckManager", component: DeckManagerComponent},
+  {path: "/game", name: "GameManager", component: GameManagerComponent}
+  */
 ];

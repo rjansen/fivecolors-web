@@ -10,8 +10,8 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
  */
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
-// App is our top level component
-import { App } from './app.component';
+// Fivecolors is our top level component
+import { Fivecolors } from './fivecolors.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
 import { Home } from './home';
@@ -35,9 +35,9 @@ type StoreType = {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ App ],
+  bootstrap: [ Fivecolors ],
   declarations: [
-    App,
+    Fivecolors,
     About,
     Home,
     NoContent,
@@ -93,4 +93,3 @@ export class AppModule {
   }
 
 }
-
