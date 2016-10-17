@@ -12,8 +12,11 @@ import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // Fivecolors is our top level component
 import { Fivecolors } from './fivecolors.component';
+import { Inventory } from './inventory/index';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
+import { SERVICE_PROVIDERS } from './services/index';
+import { PIPES_PROVIDERS } from './pipes/index';
 import { Home } from './home';
 import { About } from './about';
 import { NoContent } from './no-content';
@@ -22,7 +25,8 @@ import { XLarge } from './home/x-large';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  ...SERVICE_PROVIDERS,
+  AppState,
 ];
 
 type StoreType = {
@@ -38,6 +42,8 @@ type StoreType = {
   bootstrap: [ Fivecolors ],
   declarations: [
     Fivecolors,
+    Inventory,
+    ...PIPES_PROVIDERS,
     About,
     Home,
     NoContent,
@@ -55,7 +61,10 @@ type StoreType = {
   ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef, public appState: AppState) {}
+  constructor(
+      public appRef: ApplicationRef, 
+      public appState: AppState
+  ) {}
 
   hmrOnInit(store: StoreType) {
     if (!store || !store.state) return;

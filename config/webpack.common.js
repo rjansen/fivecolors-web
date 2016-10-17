@@ -22,7 +22,7 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = {
   title: 'Fivecolors Web Interface',
-  baseUrl: '/',
+  baseUrl: '/web/',
   isDevServer: helpers.isWebpackDevServer()
 };
 
@@ -85,6 +85,11 @@ module.exports = function(options) {
       // remove other default values
       modulesDirectories: ['node_modules'],
 
+      exclude: [
+          helpers.root('node_modules/tether'),
+          helpers.root('node_modules/bootstrap'),
+          helpers.root('node_modules/jquery'),
+      ],
     },
 
     /*

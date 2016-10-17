@@ -4,11 +4,11 @@
     </button>
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
         <a class="navbar-brand" href="#">
-            <img class="card-img" src="/assets/img/magic_5_symbols_2.png" alt="FiveColors" data-toggle="tooltip"
+            <img class="card-img" src="/web/assets/img/magic_5_symbols_2.png" alt="FiveColors" data-toggle="tooltip"
             data-placement="bottom" title="FiveColors" style="height: 30px;" />
         </a>
         <div class="nav navbar-nav">
-            <a id="inventoryLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['InventoryManager']">Inventory </a>
+            <a id="inventoryLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./inventory']">Inventory </a>
             <a id="deckLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['DeckManager']">Deck </a>
             <a id="gameLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['GameManager']">Game </a>
             <a id="homeLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./home']">Home </a>
@@ -29,4 +29,4 @@
         </div>
     </div>
 </nav>
- <router-outlet></router-outlet>
+<router-outlet></router-outlet>
