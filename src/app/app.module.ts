@@ -13,6 +13,7 @@ import { ROUTES } from './app.routes';
 // Fivecolors is our top level component
 import { Fivecolors } from './fivecolors.component';
 import { Inventory } from './inventory/index';
+import { Deck } from './deck/index';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
 import { SERVICE_PROVIDERS } from './services/index';
@@ -43,6 +44,7 @@ type StoreType = {
   declarations: [
     Fivecolors,
     Inventory,
+    Deck,
     ...PIPES_PROVIDERS,
     About,
     Home,

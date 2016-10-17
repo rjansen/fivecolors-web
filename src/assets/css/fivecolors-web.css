@@ -193,7 +193,7 @@ body {
 .expansionName {
     display: inline-block;
     text-overflow: ellipsis;
-    width: 285px;
+    width: 85%;
     overflow: hidden;
 }
 

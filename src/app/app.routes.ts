@@ -5,6 +5,7 @@ import { NoContent } from './no-content';
 
 import { DataResolver } from './app.resolver';
 import { Inventory } from './inventory/index';
+import { Deck } from './deck/index';
 
 
 export const ROUTES: Routes = [
@@ -15,6 +16,7 @@ export const ROUTES: Routes = [
     path: 'detail', loadChildren: () => System.import('./+detail')
   },
   { path: "inventory", component: Inventory },
+  { path: "deck", component: Deck },
   { path: '**',    component: NoContent },
   /*
   {path: "/deck", name: "DeckManager", component: DeckManagerComponent},

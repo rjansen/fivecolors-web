@@ -18,7 +18,7 @@ import { AppState } from './app.service';
 })
 export class Fivecolors {
   name = 'Fivecolors Web Interface';
-  url = 'https://moon.e-pedion.com/fivecolors/web';
+  url = 'http://localhost:7080/web';
   session = {
     username: "Dummy User"
   };
