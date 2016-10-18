@@ -177,12 +177,12 @@
                 </div>
                 <div class="row-fluid clearfix">
                     <div class="searchResultsHead btn-group" role="group" style="margin-top: 5px; margin-bottom: 5px;">
-                        <button type="button" class="btn btn-primary-outline" style="pading: 5px; font-size: 12px;"
+                        <button type="button" class="btn btn-outline-primary" style="pading: 5px; font-size: 12px;"
                             [class.active]="model.selectedBoard == 1" 
                             *ngIf="deck.cards != undefined" (click)="model.selectedBoard = 1">
                             Main <span class="badge">{{calculateMainCardsSize() + "/" + (deck.cards | filter:"deckCard.idBoard":1).length}}</span>
                         </button>
-                        <button type="button" class="btn btn-info-outline" style="pading: 5px; font-size: 12px;" 
+                        <button type="button" class="btn btn-outline-info" style="pading: 5px; font-size: 12px;" 
                             [class.active]="model.selectedBoard == 2" 
                             *ngIf="deck.cards != undefined" (click)="model.selectedBoard = 2">
                             Side <span class="badge">{{calculateSideCardsSize() + "/" + (deck.cards | filter:"deckCard.idBoard":2).length}}</span>

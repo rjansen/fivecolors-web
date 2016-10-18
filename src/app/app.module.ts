@@ -19,7 +19,6 @@ import { AppState, InteralStateType } from './app.service';
 import { SERVICE_PROVIDERS } from './services/index';
 import { PIPES_PROVIDERS } from './pipes/index';
 import { Home } from './home';
-import { About } from './about';
 import { NoContent } from './no-content';
 import { XLarge } from './home/x-large';
 
@@ -46,7 +45,6 @@ type StoreType = {
     Inventory,
     Deck,
     ...PIPES_PROVIDERS,
-    About,
     Home,
     NoContent,
     XLarge

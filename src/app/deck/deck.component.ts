@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 //import {Observable} from 'rxjs/Observable';
-import { Board, SessionService, CardService, ExpansionService, DeckService } from '../services/index';
+import { Board, DeckService } from '../services/index';
 import { ValuesPipe, FilterPipe } from "../pipes/index"
 
 
@@ -10,10 +10,11 @@ import { ValuesPipe, FilterPipe } from "../pipes/index"
     templateUrl: './deck.html',
     styles: [
         './deck.css'
-    ],
-    providers: [
-        SessionService, CardService, ExpansionService, DeckService
-    ],
+    ]
+    // ,
+    // providers: [
+    //     SessionService, CardService, ExpansionService, DeckService
+    // ],
 })
 export class Deck implements OnInit {
     //public searchResults = [];

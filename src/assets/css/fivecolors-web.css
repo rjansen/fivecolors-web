@@ -67,7 +67,7 @@ body {
 }
 
 .cardDetails {
-    margin-top: -55px;
+    margin: auto;
 }
 
 .hide {
@@ -98,7 +98,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 2px;
     padding: 2px;
-    height: 69px;
+    height: 59px;
     overflow-y: auto;
     padding-right: 0px;
 }
@@ -145,6 +145,7 @@ body {
 
 .parameterExpansion {
     float: none !important;
+    padding: 3px 3px 2px 4px !important;
 }
 
 .imageBtn {
@@ -199,7 +200,7 @@ body {
 
 .expansionImage,
 .expansionImageSelect {
-    height: 18px;
+    height: 16px;
     vertical-align: middle;
 }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 //import {Observable} from 'rxjs/Observable';
-import { InventoryService, CardService, ExpansionService, SessionService } from '../services/index';
+import { InventoryService } from '../services/index';
 import { ValuesPipe, FilterPipe } from "../pipes/index"
 
 @Component({
@@ -9,10 +9,11 @@ import { ValuesPipe, FilterPipe } from "../pipes/index"
     templateUrl: './inventory.html',
     styles: [
         './inventory.css'
-    ],
-    providers: [
-        CardService, ExpansionService, InventoryService
-    ],
+    ]
+    // ,
+    // providers: [
+    //     CardService, ExpansionService, InventoryService
+    // ],
 })
 export class Inventory implements OnInit {
     //public searchResults = [];
@@ -41,7 +42,6 @@ export class Inventory implements OnInit {
     private valuesPipe = new ValuesPipe();
     
     constructor(
-        private sessionService: SessionService, 
         private inventoryService: InventoryService 
     ) {
 //        private routeParams: Params) {

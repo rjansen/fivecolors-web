@@ -17,7 +17,6 @@ export class SessionService {
     ) { }
 
     loadSession(callback=null) {
-        console.log(`LoadingSession: SessionURL=${this.urls.sessions}`);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         this.http
@@ -30,7 +29,6 @@ export class SessionService {
         if (response.status != 200) {
             throw Error(`ErrorLoadingSession: SessionURL=${this.urls.sessions}`);
         }
-        console.log(`SessionLoaded: Response=${JSON.stringify(response)}`);
         this.session = response.json();
         if (callback != null) {  
             callback(this.session);
@@ -38,7 +36,6 @@ export class SessionService {
     }
     
     loadPlayer(callback=null) {
-        console.log(`LoadingPlayer: SessionID=${this.session.id} PlayerURL=${this.urls.players}`);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         this.http
@@ -51,7 +48,6 @@ export class SessionService {
         if (response.status != 200) {
             throw Error(`ErrorLoadingPlayer: PlayerURL=${this.urls.players}`);
         }
-        console.log(`PlayerLoaded: Response=${JSON.stringify(response)}`);
         this.player = response.json(); 
         if (callback != null) {  
             callback(this.player);
