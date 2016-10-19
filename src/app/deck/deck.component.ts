@@ -47,6 +47,17 @@ export class Deck implements OnInit {
         private deckService: DeckService
     ) { }
 
+
+    logFindResult(result: any[]) {
+        console.log(`LogFindResult result=${result}`);
+        this.applySearchResults(result);
+    }
+
+   logFindNewPageResult(result: any[]) {
+        console.log(`LogFindResult result=${result}`);
+        this.applyNewSearchResults(result);
+    }
+
     ngOnInit() {
         this.listExpansions();
     }

@@ -14,6 +14,7 @@ import { ROUTES } from './app.routes';
 import { Fivecolors } from './fivecolors.component';
 import { Inventory } from './inventory/index';
 import { Deck } from './deck/index';
+import { CardFinder } from './component/index';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
 import { SERVICE_PROVIDERS } from './services/index';
@@ -44,6 +45,7 @@ type StoreType = {
     Fivecolors,
     Inventory,
     Deck,
+    CardFinder,
     ...PIPES_PROVIDERS,
     Home,
     NoContent,

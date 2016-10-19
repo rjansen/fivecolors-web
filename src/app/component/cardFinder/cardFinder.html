@@ -1,0 +1,81 @@
+<div class="col-xs-12" style="padding-left: 0px;" (keyup.enter)="search()">
+	<div class="row-fluid clearfix">
+		<div class="parameterInputTop col-xs-4">
+			<div class="input-group input-group-sm">
+				<input #filterIndex class="form-control" placeholder="Card Set #" type="text" [(ngModel)]="parameter.index" (keyup.enter)="search()"
+				/>
+			</div>
+		</div>
+		<div class="parameterInputTop col-xs-8">
+			<div class="input-group input-group-sm">
+				<div class="input-group-btn">
+					<button id="setSelectBtn" type="button" class="expansionFrame btn input-group-addon dropdown-toggle" style="width: 100%;"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!--<span [hidden]="parameter.expansion != undefined">Set</span>-->
+                                <span>Set</span>
+                            </button>
+					<div class="expansionDropDown dropdown-menu" aria-labelledby="setSelectBtn" (keyup.enter)="search()">
+						<a class="pointerCursor dropdown-item" (click)=addExpansionParameter(null)>
+							<i class="fa fa-close text-muted expansionImageRemoveSelect"></i>
+							<span class="expansionNameSelect"><strong>Remove Expansion</strong></span>
+						</a>
+						<a class="pointerCursor dropdown-item" (click)=addExpansionParameter(expansion) *ngFor="let expansion of model.expansions">
+							<img class="expansionImageSelect" src="/api/asset/{{expansion.idAsset}}">
+							<span class="expansionNameSelect"><strong>{{expansion.name}}</strong></span>
+						</a>
+					</div>
+				</div>
+				<div class="parameterExpansion form-control" *ngIf="parameter.expansion != undefined">
+					<img class="expansionImage" src="/api/asset/{{parameter.expansion.idAsset}}">
+					<span class="expansionName"><strong>{{parameter.expansion.name}}</strong></span>
+				</div>
+			</div>
+		</div>
+		<div class="parameterInput col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class=" input-group input-group-sm">
+				<span class="input-group-addon">
+                            <input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the type filter">
+                        </span>
+				<input type="text" class="form-control" placeholder="Type Rx" [(ngModel)]="parameter.type" (keyup.enter)="search()">
+			</div>
+		</div>
+		<div class="parameterInput col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon">
+                            <input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the cost filter">
+                        </span>
+				<input type="text" class="form-control" placeholder="Cost Rx" [(ngModel)]="parameter.cost" (keyup.enter)="search()">
+			</div>
+		</div>
+		<div class="parameterInput col-xs-7">
+			<div class="input-group input-group-sm">
+				<input class="form-control" placeholder="Card Name" type="text" [(ngModel)]="parameter.name" (keyup.enter)="search()" />
+			</div>
+		</div>
+		<div class="parameterInput col-xs-3">
+			<div class="input-group input-group-sm">
+				<input class="form-control" placeholder="QTD" type="number" min="0" [(ngModel)]="parameter.stockQuantity" (keyup.enter)="search()"
+				/>
+			</div>
+		</div>
+		<div class="col-xs-2 parameterInput">
+			<div class="btn-group pull-right">
+				<button type="button" class="imageBtn btn btn-secondary" [disabled]="filterIsInValid()" (click)="search()">
+                            <i class="fa fa-search" *ngIf="!model.querying"></i>
+                            <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.querying"></i>
+                        </button>
+				<button type="button" [disabled]="filterIsInValid()" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" (click)="searchOnNewPage()">On New Page</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" (click)="closeSearchResults()">Close Page</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngIf="showResults" style="margin-top: 10px; padding-left: 0px; background-color: #ff0000; height: 100px;" class="col-xs-12">
+</div>
