@@ -5,34 +5,33 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title><%= webpackConfig.metadata.title %></title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
 
-  <meta name="description" content="<%= webpackConfig.metadata.title %>">
+  <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
 
   <% if (webpackConfig.htmlElements.headTags) { %>
   <!-- Configured Head Tags  -->
   <%= webpackConfig.htmlElements.headTags %>
   <% } %>
 
-  <script name="jquery.min" type="text/javascript" src="<%= webpackConfig.metadata.baseUrl %>assets/js/jquery.min.js"></script>
-  <script name="tether.min" type="text/javascript" src="<%= webpackConfig.metadata.baseUrl %>assets/js/tether.min.js"></script>
+  <script name="jquery.min" type="text/javascript" src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/js/jquery.min.js"></script>
+  <script name="tether.min" type="text/javascript" src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/js/tether.min.js"></script>
 
-  <script name="bootstrap.min" type="text/javascript" src="<%= webpackConfig.metadata.baseUrl %>assets/js/bootstrap.min.js"></script>
+  <script name="bootstrap.min" type="text/javascript" src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/js/bootstrap.min.js"></script>
 
   <!-- base url -->
-  <base href="<%= webpackConfig.metadata.baseUrl %>">
+  <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
 
 
 </head>
 
 <body>
   <fivecolors>Loading...</fivecolors>
-  
-  <% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
-  <!-- Webpack Dev Server reload -->
-  <script src="<%= webpackConfig.metadata.baseUrl %>webpack-dev-server.js"></script>
-  <% } %>
 
+  <!-- Webpack Dev Server reload -->
+  <!--<% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
+  <script src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>webpack-dev-server.js"></script>
+  <% } %>-->
 
 </body>
 </html>

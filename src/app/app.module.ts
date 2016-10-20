@@ -11,16 +11,18 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // Fivecolors is our top level component
+import { SERVICE_PROVIDERS } from './services/index';
+import { PIPES_PROVIDERS } from './pipes/index';
 import { Fivecolors } from './fivecolors.component';
 import { Inventory } from './inventory/index';
 import { Deck } from './deck/index';
 import { CardFinder } from './component/index';
+import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
-import { AppState, InteralStateType } from './app.service';
-import { SERVICE_PROVIDERS } from './services/index';
-import { PIPES_PROVIDERS } from './pipes/index';
-import { Home } from './home';
-import { NoContent } from './no-content';
+import { AppState, InternalStateType } from './app.service';
+import { HomeComponent } from './home';
+import { AboutComponent } from './about';
+import { NoContentComponent } from './no-content';
 import { XLarge } from './home/x-large';
 
 // Application wide providers
@@ -31,7 +33,7 @@ const APP_PROVIDERS = [
 ];
 
 type StoreType = {
-  state: InteralStateType,
+  state: InternalStateType,
   restoreInputValues: () => void,
   disposeOldHosts: () => void
 };
@@ -47,8 +49,10 @@ type StoreType = {
     Deck,
     CardFinder,
     ...PIPES_PROVIDERS,
-    Home,
-    NoContent,
+    AppComponent,
+    AboutComponent,
+    HomeComponent,
+    NoContentComponent,
     XLarge
   ],
   imports: [ // import Angular's modules
@@ -63,10 +67,7 @@ type StoreType = {
   ]
 })
 export class AppModule {
-  constructor(
-      public appRef: ApplicationRef, 
-      public appState: AppState
-  ) {}
+  constructor(public appRef: ApplicationRef, public appState: AppState) {}
 
   hmrOnInit(store: StoreType) {
     if (!store || !store.state) return;
@@ -104,3 +105,4 @@ export class AppModule {
   }
 
 }
+
