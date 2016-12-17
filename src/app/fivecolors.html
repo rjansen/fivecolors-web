@@ -10,10 +10,7 @@
         <div class="nav navbar-nav">
             <a id="inventoryLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./inventory']">Inventory </a>
             <a id="deckLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./deck']">Deck </a>
-            <a id="newdeckLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./newdeck']">NewDeck </a>
-            <a id="gameLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['GameManager']">Game </a>
             <a id="homeLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./home']">Home </a>
-            <a class="nav-item nav-link">Config </a>
             <form class="form-inline pull-xs-right" method="get" action="/auth/logout/">
                 <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-success" type="submit">{{session.username}}</button>

@@ -16,7 +16,6 @@ import { PIPES_PROVIDERS } from './pipes/index';
 import { Fivecolors } from './fivecolors.component';
 import { Inventory } from './inventory/index';
 import { Deck } from './deck/index';
-import { NewDeck } from './newdeck/index';
 import { CardFinder } from './component/index';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
@@ -48,7 +47,6 @@ type StoreType = {
     Fivecolors,
     Inventory,
     Deck,
-    NewDeck,
     CardFinder,
     ...PIPES_PROVIDERS,
     AppComponent,
