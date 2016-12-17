@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+  margin: 0
+}
+
 body {
     padding-top: 70px;
 }
@@ -9,8 +14,8 @@ body {
 
 .searchResultsBody {
     padding: 0px;
-    height: 440px;
-    overflow-y: auto;
+    /*height: 440px;
+    overflow-y: auto;*/
 }
 
 .searchResultsItem {
@@ -181,8 +186,8 @@ body {
 
 .searchResultsBodyDeck {
     padding: 0px;
-    height: 514px;
-    overflow-y: auto;
+    /*height: 514px;
+    overflow-y: auto;*/
 }
 
 .expansionName,

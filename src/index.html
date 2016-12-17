@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en-us">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link id="favicon" rel="shortcut icon" type="image/png" href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/icon/ffm_logo.png">
 
-  <title><%= htmlWebpackPlugin.options.title %></title>
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
 
   <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/css/tether.min.css">
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/css/fivecolors-web.css">
 
+  <!-- Configured Head Tags
   <% if (webpackConfig.htmlElements.headTags) { %>
-  <!-- Configured Head Tags  -->
   <%= webpackConfig.htmlElements.headTags %>
   <% } %>
+  -->
 
-  <script name="jquery.min" type="text/javascript" src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/js/jquery.min.js"></script>
+  <script name="jquery.min " type="text/javascript " src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/js/jquery.min.js"></script>
   <script name="tether.min" type="text/javascript" src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/js/tether.min.js"></script>
 
   <script name="bootstrap.min" type="text/javascript" src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>assets/js/bootstrap.min.js"></script>
@@ -22,16 +31,17 @@
   <!-- base url -->
   <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
 
-
 </head>
 
 <body>
   <fivecolors>Loading...</fivecolors>
 
-  <!-- Webpack Dev Server reload -->
-  <!--<% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
+  <!-- Webpack Dev Server reload
+  <% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
   <script src="<%= htmlWebpackPlugin.options.metadata.baseUrl %>webpack-dev-server.js"></script>
-  <% } %>-->
+  <% } %>
+  -->
 
 </body>
+
 </html>

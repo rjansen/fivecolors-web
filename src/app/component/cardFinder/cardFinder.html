@@ -20,13 +20,13 @@
 							<span class="expansionNameSelect"><strong>Remove Expansion</strong></span>
 						</a>
 						<a class="pointerCursor dropdown-item" (click)=addExpansionParameter(expansion) *ngFor="let expansion of model.expansions">
-							<img class="expansionImageSelect" src="/api/asset/{{expansion.idAsset}}">
+							<img class="expansionImageSelect" src="/api/assets/{{expansion.idAsset}}">
 							<span class="expansionNameSelect"><strong>{{expansion.name}}</strong></span>
 						</a>
 					</div>
 				</div>
 				<div class="parameterExpansion form-control" *ngIf="parameter.expansion != undefined">
-					<img class="expansionImage" src="/api/asset/{{parameter.expansion.idAsset}}">
+					<img class="expansionImage" src="/api/assets/{{parameter.expansion.idAsset}}">
 					<span class="expansionName"><strong>{{parameter.expansion.name}}</strong></span>
 				</div>
 			</div>

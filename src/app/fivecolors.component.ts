@@ -30,10 +30,10 @@ export class Fivecolors implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sessionService.loadSession(s => {
-      this.applyLoadSessionResult(s);
-    });
-    console.log('FivecolorsInit', this.appState.state);
+    // this.sessionService.loadSession(s => {
+    //   this.applyLoadSessionResult(s);
+    // });
+    console.log('FivecolorsInit');
   }
 
   applyLoadSessionResult(result) {

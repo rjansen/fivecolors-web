@@ -6,11 +6,11 @@ import { ValuesPipe, FilterPipe } from "../pipes/index"
 
 
 @Component({
-    selector: 'deck',
-    templateUrl: './deck.html',
-    styleUrls: [ './deck.css' ]
+    selector: 'newdeck',
+    templateUrl: './newdeck.html',
+    styleUrls: [ './newdeck.css' ]
 })
-export class Deck implements OnInit {
+export class NewDeck implements OnInit {
     //public searchResults = [];
     public parameter = {
         index: undefined,

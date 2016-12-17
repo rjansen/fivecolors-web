@@ -1,41 +1,80 @@
-<div class="card-container">
-  <h1 x-large class="sample-content">Your Content Here</h1>
-
-  <div>
-    For material design components use the <a href="https://github.com/AngularClass/angular2-webpack-starter/tree/material2"><b>material2</b></a> branch
+<div class="container-fluid boxv">
+  <div class="col-xs-6 box">
+    <div class="row header">
+      <p><b>header</b>
+        <br />
+        <br />(sized to content 1)
+        <br />(sized to content 2)
+        <br />(sized to content 3)
+        <br />(sized to content 5)
+      </p>
+    </div>
+    <div class="row content">
+      <p>
+        <b>content</b> (fills remaining space)
+      </p>
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+      <img class="card-img searchResultsImg" src="/api/assets/10676" />
+    </div>
+    <div class="row footer">
+      <p><b>footer</b> (fixed height)</p>
+    </div>
   </div>
-
-  <hr>
-
-  <div>
-    For hot module reloading run
-    <pre>npm run start:hmr</pre>
+  <div class="col-xs-6 box">
+    <div class="row header">
+      <p><b>header</b>
+        <br />
+        <br />(sized to content)</p>
+    </div>
+    <div class="row content">
+      <p>
+        <b>content</b> (fills remaining space)
+      </p>
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+      <img class="card-img searchResultsImg" src="/api/assets/1093" />
+    </div>
+    <div class="row footer">
+      <p><b>footer</b> (fixed height)</p>
+    </div>
   </div>
-
-  <hr>
-
-  <div>
-    <h4>Local State</h4>
-
-    <form (ngSubmit)="submitState(localState.value)" autocomplete="off">
-
-      <input
-        [value]="localState.value"
-        (input)="localState.value = $event.target.value"
-        placeholder="Submit Local State to App State"
-        autofocus>
-
-      <button md-raised-button color="primary">Submit Value</button>
-    </form>
-    <!--
-        <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
-        Rather than wiring up two-way data-binding ourselves with [value] and (input)
-        we can use Angular's [(ngModel)] syntax
-        <input type="text" name="textInput" [(ngModel)]="localState.value" autofocus>
-      -->
-
-    <pre>this.localState = {{ localState | json }}</pre>
-
-  </div>
-
 </div>

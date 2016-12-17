@@ -156,7 +156,14 @@ module.exports = function (options) {
         aggregateTimeout: 300,
         poll: 1000
       },
-      outputPath: helpers.root('dist')
+      proxy: {
+        '/api/*': 'http://localhost:4000'
+      },
+      output: {
+        path: helpers.root('dist'),
+        publicPath: METADATA.baseUrl 
+      }
+      //outputPath: helpers.root('dist')
     },
 
     /*

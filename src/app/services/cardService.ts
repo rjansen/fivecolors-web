@@ -40,7 +40,7 @@ export class CardService {
             if (searchQueryParameters.length <= 0) {
                 throw new Error("CardSearchEmptyParameters");
             }
-            let searchUrl = this.urls.cards + "?" + searchQueryParameters.join("&");
+            let searchUrl = this.urls.cards + "query/?" + searchQueryParameters.join("&");
             return this.http
                 .get(searchUrl)
                 .map(res => res.json())

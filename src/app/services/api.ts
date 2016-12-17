@@ -7,11 +7,11 @@ export class Urls {
     private host = "";
     //private context = `${this.host}/fivecolors/api`;
     private identity = `${this.host}/identity`;
-    public sessions = `${this.identity}/session/`;  // URL to session REST api
+    public sessions = `${this.identity}/sessions/`;  // URL to session REST api
     private api = `${this.host}/api`;
-    public players = `${this.api}/player/`;  // URL to player REST api
-    public cards = `${this.api}/card/`;  // URL to card REST api
-    public expansions = `${this.api}/expansion/`;  // URL to card REST api
-    public inventories = `${this.api}/inventory/`;  // URL to inventory REST api
-    public decks = `${this.api}/deck/`;  // URL to inventory REST api
+    public players = `${this.api}/players/`;  // URL to player REST api
+    public cards = `${this.api}/cards/`;  // URL to card REST api
+    public expansions = `${this.api}/expansions/`;  // URL to card REST api
+    public inventories = `${this.api}/inventories/`;  // URL to inventory REST api
+    public decks = `${this.api}/decks/`;  // URL to inventory REST api
 }
