@@ -77,5 +77,19 @@
 		</div>
 	</div>
 </div>
+<div class="searchResultsHead btn-group" role="group" style="margin-top: 5px; margin-bottom: 5px;"
+		*ngIf="model.searchResults != undefined">
+	<button type="button" class="btn btn-sm searchResultsTitle"
+		*ngFor="let searchResultsItem of model.searchResultsList; let k = index"
+		(click)="selectResult(searchResultsItem, k)" 
+		[class.active]="isCurrentSearchResults(k)"
+		[class.btn-outline-secondary]="searchResultsItem.length <= 0"
+		[class.btn-outline-success]="searchResultsItem.length > 0">
+		<span class="badge">{{searchResultsItem.length}}</span>
+		<a data-toggle="tooltip" data-placement="bottom" title="Click to view query filters">
+			<span class="tag tag-pill tag-default">?</span>
+		</a>
+	</button>
+</div>
 <div *ngIf="showResults" style="margin-top: 10px; padding-left: 0px; background-color: #ff0000; height: 100px;" class="col-xs-12">
 </div>

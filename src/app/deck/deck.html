@@ -3,13 +3,6 @@
         <div class="row header">
             <card-finder [showResults]="false" (onResult)="logFindResult($event)" (onNewPageResult)="logFindNewPageResult($event)">
             </card-finder>
-            <div class="searchResultsHead btn-group" role="group" style="margin-top: 5px; margin-bottom: 5px;" *ngIf="model.searchResults != undefined">
-                <button type="button" class="btn btn-sm searchResultsTitle" [class.active]="isCurrentSearchResults(k)" *ngFor="let searchResultsItem of model.searchResultsList; let k = index"
-                    (click)="selectResult(searchResultsItem, k)" [class.btn-secondary-outline]="model.searchResults.length <= 0"
-                    [class.btn-success-outline]="model.searchResults.length > 0">
-                C{{k}} <span class="badge">{{searchResultsItem.length}}</span>
-            </button>
-            </div>
         </div>
         <div class="row content">
             <div class="searchResultsBody col-xs-12" style="padding: 0px;">
@@ -65,12 +58,12 @@
                 </div>
             </form>
             <form #postDeck="ngForm" (ngSubmit)="update()">
-                <div class="col-xs-8" style="padding: 0px; padding-left: 0px;">
+                <div class="col-xs-7" style="padding: 0px; padding-left: 0px;">
                     <div class="nameInput input-group input-group-sm">
                         <div class="input-group-btn" [class.open]="model.decks?.length > 0">
                             <button #deckSearck disabled type="button" class="btn input-group-addon dropdown-toggle" style="width: 100%;" data-toggle="dropdown"
                                 aria-haspopup="true" (aria-expanded)="model.decks?.length > 0">
-                                    </button>
+                            </button>
                             <div #deckIntellisense class="deckIntellisense dropdown-menu" style="width: 400px;" aria-labelledby="deckSearck">
                                 <a class="pointerCursor dropdown-item" [class.disabled]="model.deck?.id != undefined" (click)=selectDeck(deck) *ngFor="let deck of model.decks">
                                     <span class="deckIntellisenseSelect"><strong>{{deck.id}} - {{deck.name}}</strong></span>
@@ -83,7 +76,8 @@
                 </div>
                 <div class="col-xs-1 actionColumn parameterInputTop">
                     <div class="updateDeckBtn btn-group">
-                        <button type="submit" [disabled]="!postDeck.form.valid" class="imageBtn btn btn-secondary">
+                        <!--<button type="submit" [disabled]="!postDeck.form.valid" class="imageBtn btn btn-secondary">-->
+                        <button type="submit" class="imageBtn btn btn-secondary">
                             <i class="fa fa-play-circle-o" *ngIf="!model.updating"></i>
                             <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.updating"></i>
                         </button>

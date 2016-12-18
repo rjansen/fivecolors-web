@@ -1,168 +1,78 @@
-<div class="container-fluid">
-    <div class="row-fluid clearfix">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding-left: 0px;" (keyup.enter)="search()">
-            <div class="row-fluid clearfix">
-                <div class="parameterInputTop col-xs-4">
-                    <div class="input-group input-group-sm">
-                        <input #filterIndex class="form-control" placeholder="Card Set #" type="text" [(ngModel)]="parameter.index" (keyup.enter)="search()" />
-                    </div>
-                </div>
-                <div class="parameterInputTop col-xs-8">
-                    <div class="input-group input-group-sm">
-                        <div class="input-group-btn">
-                            <button id="setSelectBtn" type="button" class="expansionFrame btn input-group-addon dropdown-toggle" style="width: 100%;" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                                <!--<span [hidden]="parameter.expansion != undefined">Set</span>-->
-                                <span>Set</span>
-                            </button>
-                            <div class="expansionDropDown dropdown-menu" aria-labelledby="setSelectBtn" (keyup.enter)="search()">
-                                <a class="pointerCursor dropdown-item" (click)=addExpansionParameter(null)>
-                                    <i class="fa fa-close text-muted expansionImageRemoveSelect"></i>
-                                    <span class="expansionNameSelect"><strong>Remove Expansion</strong></span>
-                                </a>
-                                <a class="pointerCursor dropdown-item" (click)=addExpansionParameter(expansion) *ngFor="let expansion of model.expansions">
-                                    <img class="expansionImageSelect" src="/api/assets/{{expansion.idAsset}}">
-                                    <span class="expansionNameSelect"><strong>{{expansion.name}}</strong></span>
-                                </a>
+<div class="container-fluid boxv">
+    <div class="col-xs-12 box">
+        <div class="row header">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding-left: 0px;" (keyup.enter)="search()">
+                <card-finder [showResults]="false" (onResult)="logFindResult($event)" (onNewPageResult)="logFindNewPageResult($event)">
+                </card-finder>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 0px;">
+                <div class="row-fluid clearfix">
+                    <div class="parameterInputTop col-xs-12"> 
+                        <div class="updateActionFrame">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4 updateItemFrame" *ngFor="let updateItem of model.updateQueue | values">
+                                <button class="btn btn-sm updateItemBtn" 
+                                [class.btn-outline-primary]="compareUpdateItemQuantity(updateItem) > 0" 
+                                [class.btn-outline-secondary]="compareUpdateItemQuantity(updateItem) == 0"
+                                [class.btn-outline-warning]="compareUpdateItemQuantity(updateItem) < 0">
+                                    <span class="updateItem">{{updateItem.card.name}}</span>
+                                    <div style="display: inline; vertical-align: middle;">
+                                        <span class="tag tag-pill" 
+                                        [class.tag-success]="compareUpdateItemQuantity(updateItem) > 0" 
+                                        [class.tag-default]="compareUpdateItemQuantity(updateItem) == 0"
+                                        [class.tag-danger]="compareUpdateItemQuantity(updateItem) < 0">
+                                            {{updateItem.quantity}}</span>
+                                        <i class="fa fa-close text-muted" (click)=removeUpdateItem(updateItem)></i>
+                                    </div>
+                                </button>
                             </div>
                         </div>
-                        <div class="parameterExpansion form-control" *ngIf="parameter.expansion != undefined">
-                            <img class="expansionImage" src="/api/assets/{{parameter.expansion.idAsset}}">
-                            <span class="expansionName"><strong>{{parameter.expansion.name}}</strong></span>
-                        </div>
                     </div>
-                </div>
-                <div class="parameterInput col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <div class=" input-group input-group-sm">
-                        <span class="input-group-addon">
-                            <input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the type filter">
-                        </span>
-                        <input type="text" class="form-control" placeholder="Type Rx"
-                            [(ngModel)]="parameter.type" (keyup.enter)="search()">
-                    </div>
-                </div>
-                <div class="parameterInput col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                            <input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the cost filter">
-                        </span>
-                        <input type="text" class="form-control" placeholder="Cost Rx"
-                            [(ngModel)]="parameter.cost" (keyup.enter)="search()">
-                    </div>
-                </div>
-                <div class="parameterInput col-xs-7">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control" placeholder="Card Name" type="text" 
-                            [(ngModel)]="parameter.name" (keyup.enter)="search()" />
-                    </div>
-                </div>
-                <div class="parameterInput col-xs-3">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control" placeholder="QTD" type="number" min="0" 
-                            [(ngModel)]="parameter.stockQuantity" (keyup.enter)="search()" />
-                    </div>
-                </div>
-                <div class="col-xs-2 parameterInput">
-                    <div class="btn-group pull-right">
-                        <button type="button" class="imageBtn btn btn-secondary" 
-                                [disabled]="filterIsInValid()" (click)="search()">
-                            <i class="fa fa-search" *ngIf="!model.querying"></i>
-                            <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.querying"></i>
-                        </button>
-                        <button type="button" [disabled]="filterIsInValid()" class="btn btn-secondary btn-sm dropdown-toggle" 
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" (click)="searchOnNewPage()">On New Page</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" (click)="closeSearchResults()">Close Page</a>
+                    <div class="parameterInput col-xs-12">
+                        <div class="btn-group pull-left">
+                            <button type="button" class="imageBtn btn btn-secondary" 
+                                    [disabled]="updateQueueIsInvalid()" (click)=update()>
+                                <i class="fa fa-play-circle-o" *ngIf="!model.updating"></i>
+                                <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.updating"></i>
+                            </button>
+                            <button type="button" [disabled]="updateQueueIsInvalid()" 
+                                    class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" (click)=cleanUpdateQueue()>Clear</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 0px;">
-            <div class="row-fluid clearfix">
-                <div class="parameterInputTop col-xs-12"> 
-                    <div class="updateActionFrame">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4 updateItemFrame" *ngFor="let updateItem of model.updateQueue | values">
-                            <button class="btn btn-sm updateItemBtn" 
-                            [class.btn-outline-primary]="compareUpdateItemQuantity(updateItem) > 0" 
-                            [class.btn-outline-secondary]="compareUpdateItemQuantity(updateItem) == 0"
-                            [class.btn-outline-warning]="compareUpdateItemQuantity(updateItem) < 0">
-                                <span class="updateItem">{{updateItem.card.name}}</span>
-                                <div style="display: inline; vertical-align: middle;">
-                                    <span class="tag tag-pill" 
-                                    [class.tag-success]="compareUpdateItemQuantity(updateItem) > 0" 
-                                    [class.tag-default]="compareUpdateItemQuantity(updateItem) == 0"
-                                    [class.tag-danger]="compareUpdateItemQuantity(updateItem) < 0">
-                                        {{updateItem.quantity}}</span>
-                                    <i class="fa fa-close text-muted" (click)=removeUpdateItem(updateItem)></i>
+        <div class="row content">
+            <div class="searchResultsBody container-fluid">
+                <div class="searchResultsItem col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" *ngFor="let searchItem of model.searchResults">
+                    <div class="cardFrame card text-xs-center">
+                        <div class="card-header text-xs-center">
+                            <span class="searchResultsItemTitle"><strong>{{searchItem.name}}</strong></span>
+                            <img src="/api/assets/{{searchItem.expansion.idAsset}}" style="height: 18px; vertical-align: middle;" />
+                        </div>
+                        <img class="card-img searchResultsImg" src="/api/assets/{{searchItem.idAsset}}" 
+                            [class.show50]="createCardQuantityLabel(searchItem) <= 0" />
+                        <img class="card-img" ngShow="false" ngSrc="/web/app/assets/images/magic_card.jpg" />
+                        <div class="actionOverlay card-img-overlay">
+                            <div class="cardDetails center-block">
+                                <div class="cardQtdLabel" [class.text-success]="compareCardQuantity(searchItem) > 0" [class.text-warning]="compareCardQuantity(searchItem) < 0"
+                                [class.show]="createCardQuantityLabel(searchItem) > 0" [class.hide]="createCardQuantityLabel(searchItem) <= 0">
+                                    {{createCardQuantityLabel(searchItem)}}</div>
+                                <div class="actionPanel hide">
+                                    <button class="action btn btn-secondary" (click)=showCard(searchItem)>
+                                        <i class="fa fa-eye fa-2x"></i>
+                                    </button>
+                                    <button class="action btn btn-secondary" (click)=removeCard(searchItem)>
+                                        <i class="fa fa-minus-circle fa-2x"></i>
+                                    </button>
+                                    <button class="action btn btn-secondary" (click)=addCard(searchItem)>
+                                        <i class="fa fa-plus-circle fa-2x"></i>
+                                    </button>
                                 </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="parameterInput col-xs-12">
-                    <div class="btn-group pull-left">
-                        <button type="button" class="imageBtn btn btn-secondary" 
-                                [disabled]="updateQueueIsInvalid()" (click)=update()>
-                            <i class="fa fa-play-circle-o" *ngIf="!model.updating"></i>
-                            <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.updating"></i>
-                        </button>
-                        <button type="button" [disabled]="updateQueueIsInvalid()" 
-                                class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" (click)=cleanUpdateQueue()>Clear</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="searchResults row-fluid clearfix">
-        <div class="searchResultsHead btn-group" role="group" style="margin-top: 5px; margin-bottom: 5px;"
-                *ngIf="model.searchResults != undefined">
-            <button type="button" class="btn btn-sm searchResultsTitle"
-                *ngFor="let searchResultsItem of model.searchResultsList; let k = index"
-                (click)="selectResult(searchResultsItem, k)" 
-                [class.active]="isCurrentSearchResults(k)"
-                [class.btn-outline-secondary]="searchResultsItem.length <= 0"
-                [class.btn-outline-success]="searchResultsItem.length > 0">
-                <span class="badge">{{searchResultsItem.length}}</span>
-                <a data-toggle="tooltip" data-placement="bottom" title="Click to view query filters">
-                    <span class="tag tag-pill tag-default">?</span>
-                </a>
-            </button>
-        </div>
-        <div class="searchResultsBody container-fluid">
-            <div class="searchResultsItem col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" *ngFor="let searchItem of model.searchResults">
-                <div class="cardFrame card text-xs-center">
-                    <div class="card-header text-xs-center">
-                        <span class="searchResultsItemTitle"><strong>{{searchItem.name}}</strong></span>
-                        <img src="/api/assets/{{searchItem.expansion.idAsset}}" style="height: 18px; vertical-align: middle;" />
-                    </div>
-                    <img class="card-img searchResultsImg" src="/api/assets/{{searchItem.idAsset}}" 
-                        [class.show50]="createCardQuantityLabel(searchItem) <= 0" />
-                    <img class="card-img" ngShow="false" ngSrc="/web/app/assets/images/magic_card.jpg" />
-                    <div class="actionOverlay card-img-overlay">
-                        <div class="cardDetails center-block">
-                            <div class="cardQtdLabel" [class.text-success]="compareCardQuantity(searchItem) > 0" [class.text-warning]="compareCardQuantity(searchItem) < 0"
-                            [class.show]="createCardQuantityLabel(searchItem) > 0" [class.hide]="createCardQuantityLabel(searchItem) <= 0">
-                                {{createCardQuantityLabel(searchItem)}}</div>
-                            <div class="actionPanel hide">
-                                <button class="action btn btn-secondary" (click)=showCard(searchItem)>
-                                    <i class="fa fa-eye fa-2x"></i>
-                                </button>
-                                <button class="action btn btn-secondary" (click)=removeCard(searchItem)>
-                                    <i class="fa fa-minus-circle fa-2x"></i>
-                                </button>
-                                <button class="action btn btn-secondary" (click)=addCard(searchItem)>
-                                    <i class="fa fa-plus-circle fa-2x"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -170,5 +80,4 @@
             </div>
         </div>
     </div>
-    <div class="searchResultsFoot row-fluid clearfix"></div>
 </div>

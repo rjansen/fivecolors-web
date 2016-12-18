@@ -19,9 +19,9 @@ import { SessionService } from './services/index';
 })
 export class Fivecolors implements OnInit {
   name = 'Fivecolors Web Interface';
-  url = 'http://localhost:7080/web';
+  // url = 'http://localhost:7080/web';
   public session = {
-    username: "dummy_user"
+    username: "anonymous"
   };
 
   constructor(

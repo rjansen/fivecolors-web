@@ -16,7 +16,7 @@ describe('Fivecolors', () => {
     ]}));
 
   it('should have a url', inject([ Fivecolors ], (fivecolors: Fivecolors) => {
-    expect(fivecolors.url).toEqual('https://moon.e-pedion.com/fivecolors/web');
+    expect(fivecolors.session.username).toEqual('anonymous');
   }));
 
 });

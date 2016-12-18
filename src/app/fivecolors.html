@@ -8,10 +8,11 @@
             data-placement="bottom" title="FiveColors" style="height: 30px;" />
         </a>
         <div class="nav navbar-nav">
-            <a id="inventoryLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./inventory']">Inventory </a>
             <a id="deckLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./deck']">Deck </a>
+            <a id="inventoryLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./inventory']">Inventory </a>
             <a id="homeLink" class="nav-item nav-link" routerLinkActive="active" [routerLink]="['./home']">Home </a>
-            <form class="form-inline pull-xs-right" method="get" action="/auth/logout/">
+            <!--<form class="form-inline pull-xs-right" method="get" action="/auth/logout/">-->
+            <form class="form-inline pull-xs-right" method="get" action="#">
                 <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-success" type="submit">{{session.username}}</button>
                 <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,7 +21,8 @@
                 <div class="dropdown-menu" style="left: -50%;">
                     <a class="dropdown-item">Preferences</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/auth/logout/">Logout</a>
+                    <a class="dropdown-item" href="#">Logout</a>
+                    <!--<a class="dropdown-item" href="/auth/logout/">Logout</a>-->
                 </div>
                 </div>
             </form>

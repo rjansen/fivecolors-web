@@ -113,6 +113,7 @@ export class CardFinder implements OnInit {
 
     selectResult(results, index) {
         this.model.searchResults = results;
+        this.onResult.emit(results);
     }
 
     closeSearchResults() {

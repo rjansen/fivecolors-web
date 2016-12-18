@@ -9,11 +9,10 @@ import { Deck } from './deck/index';
 
 
 export const ROUTES: Routes = [
-  { path: '',      component: HomeComponent },
+  { path: '',      component: Deck },
   { path: 'home',  component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: "inventory", component: Inventory },
   { path: "deck", component: Deck },
-  { path: '**',    component: Inventory },
-  { path: '**',    component: NoContentComponent },
+  { path: '**',    component: Deck },
 ];

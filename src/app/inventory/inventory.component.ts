@@ -7,13 +7,7 @@ import { ValuesPipe, FilterPipe } from "../pipes/index"
 @Component({
     selector: 'inventory',
     templateUrl: './inventory.html',
-    styles: [
-        './inventory.css'
-    ]
-    // ,
-    // providers: [
-    //     CardService, ExpansionService, InventoryService
-    // ],
+    styleUrls: [ './inventory.css' ]
 })
 export class Inventory implements OnInit {
     //public searchResults = [];
@@ -180,6 +174,16 @@ export class Inventory implements OnInit {
             .subscribe(
             data => this.applySearchResults(data),
             error => this.logError(error));
+    }
+
+    logFindResult(result: any[]) {
+        console.log(`LogFindResult result=${result}`);
+        this.applySearchResults(result);
+    }
+
+   logFindNewPageResult(result: any[]) {
+        console.log(`LogFindResult result=${result}`);
+        this.applyNewSearchResults(result);
     }
 
     applySearchResults(results) {
