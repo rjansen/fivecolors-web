@@ -315,6 +315,7 @@ export class Deck implements OnInit {
     }
 
     applyUpdateResponse(response) {
+        this.model.updating = false
         console.log("ApplyUpdateStatus=" + JSON.stringify(response));
         if (response.status == 201 || response.status == 202) {
             if (response.status == 201) {
