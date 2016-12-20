@@ -287,6 +287,16 @@ export class Deck implements OnInit {
         }
     }
 
+    copyDeck() {
+        this.deck.id = undefined;
+        this.deck.name += ' - Copy';
+        this.update()
+    }
+
+    closeDeck() {
+        this.deck = {id: undefined, name: undefined, cards: []};
+    }
+
     update() {
         this.model.updating = true;
         setTimeout(() => this.model.updating = false, 5000); // 5 seconds
@@ -326,10 +336,20 @@ export class Deck implements OnInit {
 
     find() {
         this.model.finding = true;
-        this.deckService.findDeck(this.deck.id)
-            .subscribe(
-            data => this.applyFindResult(data),
-            error => this.logError(error))
+        if (this.deck.id != undefined && this.deck.id != '') {
+            this.deckService.findDeck(this.deck.id)
+                .subscribe(
+                data => this.applyFindResult(data),
+                error => this.logError(error))
+        
+        } else if (this.deck.name != undefined && this.deck.name != '') {
+            this.deckService.findDeckByName(this.deck.name)
+                .subscribe(
+                data => this.applyFindResult(data),
+                error => this.logError(error))
+        } else {
+            throw Error(`DeckIdOrNameAreRequiredToFindError: DeckId=${this.deck.id}, DeckName=${this.deck.name}`);
+        }
     }
 
     applyFindResult(result) {

@@ -49,6 +49,18 @@ export class DeckService {
             .catch(this.handleError);
     }
 
+    findDeckByName(deckName: string) {
+        if (deckName == undefined || deckName == '') {
+            throw Error(`DeckFindRequiredFieldsError: DeckName=${deckName}`);
+        }
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http
+            .get(this.urls.decks + encodeURIComponent(deckName), options)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
     listDeck(deckNameRx: string) {
         if (deckNameRx == undefined) {
             throw Error(`DeckListRequiredFieldsError: DeckNameRx=${deckNameRx}`);

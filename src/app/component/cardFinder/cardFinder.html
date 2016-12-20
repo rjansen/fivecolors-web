@@ -63,11 +63,11 @@
 				<button type="button" class="imageBtn btn btn-secondary" [disabled]="filterIsInValid()" (click)="search()">
                             <i class="fa fa-search" *ngIf="!model.querying"></i>
                             <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.querying"></i>
-                        </button>
+				</button>
 				<button type="button" [disabled]="filterIsInValid()" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
-                        </button>
+				</button>
 				<div class="dropdown-menu">
 					<a class="dropdown-item" (click)="searchOnNewPage()">On New Page</a>
 					<div class="dropdown-divider"></div>
