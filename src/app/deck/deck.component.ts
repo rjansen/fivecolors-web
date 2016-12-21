@@ -34,7 +34,8 @@ export class Deck implements OnInit {
         searchResults: [],
         expansions: [],
         decks: [],
-        selectedBoard: 1
+        selectedBoard: 1,
+        deckSearchRx: ''
     };
 
     constructor(
@@ -43,12 +44,12 @@ export class Deck implements OnInit {
 
 
     logFindResult(result: any[]) {
-        console.log(`LogFindResult result=${result}`);
+        // console.log(`LogFindResult result=${result}`);
         this.applySearchResults(result);
     }
 
    logFindNewPageResult(result: any[]) {
-        console.log(`LogFindResult result=${result}`);
+        // console.log(`LogFindResult result=${result}`);
         this.applyNewSearchResults(result);
     }
 
@@ -59,9 +60,13 @@ export class Deck implements OnInit {
     analyseDeckName(event: KeyboardEvent) {
         if (event.keyCode == 9) {
             var deckNameSearchRx = (<HTMLInputElement>event.target).value;
-            console.log(`DeckNameSearchRx=${deckNameSearchRx}`);
-            this.list(deckNameSearchRx);
-            return false;
+            if (deckNameSearchRx.length > 2) {
+                console.log(`DeckNameSearchRx=${deckNameSearchRx}`);
+                this.list(deckNameSearchRx);
+                return false;
+            }
+        } else if (event.keyCode == 27) {
+            this.closeDecksResults()
         }
     }
 
@@ -249,7 +254,13 @@ export class Deck implements OnInit {
                 this.model.searchResultsList.push(results);
             }
             this.model.searchResults = results;
-        }
+        } else {
+            if (this.model.searchResultsList.length > 0) {
+                var resultIndex = this.model.searchResultsList.indexOf(this.model.searchResults);
+                this.model.searchResultsList[resultIndex] = [];
+            } 
+            this.model.searchResults = [];
+        } 
     }
 
     searchOnNewPage() {
@@ -359,6 +370,12 @@ export class Deck implements OnInit {
     }
 
     list(deckNameRx: string) {
+        this.clearDecks();
+        if (deckNameRx.length == 0) {
+            this.model.deckSearchRx = '*';
+        } else {
+            this.model.deckSearchRx = deckNameRx;
+        }
         this.deckService.listDeck(deckNameRx)
             .subscribe(
             data => this.applyListDeckResults(data),
@@ -373,6 +390,15 @@ export class Deck implements OnInit {
         } else {
             this.clearDecks();
         }
+        this.openDecksResults()
+    }
+
+    openDecksResults() {
+        ($("#deckSearck") as any).parent().addClass('open');
+    }
+
+    closeDecksResults() {
+        ($("#deckSearck") as any).parent().removeClass('open');    
     }
 
     clearDecks() {

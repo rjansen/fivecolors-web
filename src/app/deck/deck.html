@@ -47,18 +47,23 @@
             <form #postDeck="ngForm" (ngSubmit)="update()">
                 <div class="col-xs-7" style="padding: 0px; ">
                     <div class="nameInput input-group input-group-sm">
-                        <div class="input-group-btn" [class.open]="model.decks?.length > 0">
-                            <button #deckSearck disabled type="button" class="btn input-group-addon dropdown-toggle" style="width: 100%;" data-toggle="dropdown"
-                                aria-haspopup="true" (aria-expanded)="model.decks?.length > 0">
+                        <div class="input-group-btn">
+                            <button #deckSearck id="deckSearck" type="button" class="btn input-group-addon dropdown-toggle" style="width: 100%;" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="list('')">
                             </button>
-                            <div #deckIntellisense class="deckIntellisense dropdown-menu" style="width: 355px;" aria-labelledby="deckSearck">
+                            <div #deckIntellisense id="deckIntellisense" class="deckIntellisense dropdown-menu" style="width: 355px;" aria-labelledby="deckSearck">
+                                <h6 class="dropdown-header">Deck Name ~ {{model.deckSearchRx}}</h6>
+                                <!--<a class="pointerCursor dropdown-item" (click)=closeDeck()>
+                                    <i class="fa fa-close text-muted expansionImageRemoveSelect"></i>
+                                    <span class="expansionNameSelect"><strong>Close Deck</strong></span>
+                                </a>-->
                                 <a class="pointerCursor dropdown-item" (click)=selectDeck(deck) *ngFor="let deck of model.decks">
                                     <span class="deckIntellisenseSelect"><strong>{{deck.id}} - {{deck.name}}</strong></span>
                                 </a>
                             </div>
                         </div>
-                        <input #deckName required (ngControl)="deckName" name="deckName" [(ngModel)]="deck.name" (keydown)="analyseDeckName($event)"
-                            (focus)="clearDecks()" class="form-control" placeholder="Deck Name" type="text" />
+                        <input #deckName required (ngControl)="deckName" name="deckName" [(ngModel)]="deck.name" (keydown)="analyseDeckName($event)" 
+                               class="form-control" placeholder="Deck Name" type="text" />
                     </div>
                 </div>
                 <div class="col-xs-3 actionColumn parameterInputTop">

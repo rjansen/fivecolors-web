@@ -85,6 +85,12 @@ export class CardFinder implements OnInit {
                 this.model.searchResultsList.push(results);
             }
             this.model.searchResults = results;
+        } else {
+            if (this.model.searchResultsList.length > 0) {
+                var resultIndex = this.model.searchResultsList.indexOf(this.model.searchResults);
+                this.model.searchResultsList[resultIndex] = [];
+            } 
+            this.model.searchResults = [];
         }
         this.onResult.emit(results);
     }

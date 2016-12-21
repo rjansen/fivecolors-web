@@ -177,12 +177,12 @@ export class Inventory implements OnInit {
     }
 
     logFindResult(result: any[]) {
-        console.log(`LogFindResult result=${result}`);
+        // console.log(`LogFindResult result=${result}`);
         this.applySearchResults(result);
     }
 
    logFindNewPageResult(result: any[]) {
-        console.log(`LogFindResult result=${result}`);
+        // console.log(`LogFindResult result=${result}`);
         this.applyNewSearchResults(result);
     }
 
@@ -196,6 +196,12 @@ export class Inventory implements OnInit {
                 this.model.searchResultsList.push(results);
             }
             this.model.searchResults = results;
+        } else {
+            if (this.model.searchResultsList.length > 0) {
+                var resultIndex = this.model.searchResultsList.indexOf(this.model.searchResults);
+                this.model.searchResultsList[resultIndex] = [];
+            } 
+            this.model.searchResults = [];
         }
     }
 
