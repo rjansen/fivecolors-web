@@ -18,6 +18,7 @@ export class CardFinder implements OnInit {
     public parameter = {
         index: undefined,
         expansion: undefined,
+        text: undefined,
         cost: undefined,
         type: undefined,
         name: undefined,
@@ -62,6 +63,7 @@ export class CardFinder implements OnInit {
                 && (this.parameter.index == null || this.parameter.index.trim().length <= 0)
                 && (this.parameter.name == null || this.parameter.name.trim().length <= 0)
                 && (this.parameter.type == null || this.parameter.type.trim().length <= 0)
+                && (this.parameter.text == null || this.parameter.text.trim().length <= 0)
                 && (this.parameter.cost == null || this.parameter.cost.trim().length <= 0));
         return filterInValid;
     }

@@ -31,20 +31,28 @@
 				</div>
 			</div>
 		</div>
-		<div class="parameterInput col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<div class="parameterInput col-xs-4">
 			<div class=" input-group input-group-sm">
 				<span class="input-group-addon">
-                            <input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the type filter">
-                        </span>
+					<input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the type filter">
+				</span>
 				<input type="text" class="form-control" placeholder="Type Rx" [(ngModel)]="parameter.type" (keyup.enter)="search()">
 			</div>
 		</div>
-		<div class="parameterInput col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<div class="parameterInput col-xs-4">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon">
-                            <input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the cost filter">
-                        </span>
+					<input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the cost filter">
+				</span>
 				<input type="text" class="form-control" placeholder="Cost Rx" [(ngModel)]="parameter.cost" (keyup.enter)="search()">
+			</div>
+		</div>
+		<div class="parameterInput col-xs-4">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon">
+					<input type="checkbox" data-toggle="tooltip" data-placement="bottom" title="Check to negate the text filter">
+				</span>
+				<input type="text" class="form-control" placeholder="Text Rx" [(ngModel)]="parameter.text" (keyup.enter)="search()">
 			</div>
 		</div>
 		<div class="parameterInput col-xs-7">
@@ -54,15 +62,14 @@
 		</div>
 		<div class="parameterInput col-xs-3">
 			<div class="input-group input-group-sm">
-				<input class="form-control" placeholder="QTD" type="number" min="0" [(ngModel)]="parameter.stockQuantity" (keyup.enter)="search()"
-				/>
+				<input class="form-control" placeholder="QTD" type="number" min="0" [(ngModel)]="parameter.stockQuantity" (keyup.enter)="search()" />
 			</div>
 		</div>
 		<div class="col-xs-2 parameterInput">
 			<div class="btn-group pull-right">
 				<button type="button" class="imageBtn btn btn-secondary" [disabled]="filterIsInValid()" (click)="search()">
-                            <i class="fa fa-search" *ngIf="!model.querying"></i>
-                            <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.querying"></i>
+					<i class="fa fa-search" *ngIf="!model.querying"></i>
+					<i class="fa fa-circle-o-notch fa-spin" *ngIf="model.querying"></i>
 				</button>
 				<button type="button" [disabled]="filterIsInValid()" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">

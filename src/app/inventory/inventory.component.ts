@@ -14,6 +14,7 @@ export class Inventory implements OnInit {
     public parameter = {
         index: undefined,
         expansion: undefined,
+        text: undefined,
         cost: undefined,
         type: undefined,
         name: undefined,

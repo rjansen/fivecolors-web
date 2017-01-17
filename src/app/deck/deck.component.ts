@@ -15,6 +15,7 @@ export class Deck implements OnInit {
     public parameter = {
         index: undefined,
         expansion: undefined,
+        text: undefined,
         cost: undefined,
         type: undefined,
         name: undefined,
@@ -148,10 +149,14 @@ export class Deck implements OnInit {
         }
     }
 
+    showCardOnLigaMagic(card) {
+        console.log("ShowCardOnLigaMagic=" + card);
+        var win = window.open(`http://ligamagic.com.br/?view=cards%2Fsearch&card=${encodeURIComponent(card.name).replace(/'/g, "%27")}`, '_blank');
+        win.focus();
+    }
+
     showCard(card) {
         console.log("ShowCard=" + card);
-        var win = window.open(`http://ligamagic.com.br/?view=cards%2Fsearch&card=${encodeURIComponent(card.name)}`, '_blank');
-        win.focus();
     }
 
     removeCard(card) {
@@ -237,7 +242,7 @@ export class Deck implements OnInit {
 
     search() {
         this.model.querying = true;
-        setTimeout(() => this.model.querying = false, 5000); // 5 seconds
+        // setTimeout(() => this.model.querying = false, 5000); // 5 seconds
         this.deckService.searchCards(this.parameter)
             .subscribe(
             data => this.applySearchResults(data),

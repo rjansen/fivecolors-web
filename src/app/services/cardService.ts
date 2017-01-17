@@ -15,9 +15,8 @@ export class CardService {
     }
     
     searchCards(parameter: CardSearch): Observable<any> {
-        console.log(JSON.stringify(parameter));
+        console.log(`CardService.searchCards parameter=${JSON.stringify(parameter)}`);
         if (!parameter.isMock) {
-            console.log(`CallServer With=${JSON.stringify(parameter)}`);
             let searchQueryParameters = [];
             if (parameter.stockQuantity != undefined && parameter.stockQuantity >= 0) {
                 searchQueryParameters.push("q=" + parameter.stockQuantity);
@@ -37,10 +36,14 @@ export class CardService {
             if (parameter.cost != undefined && parameter.cost != "") {
                 searchQueryParameters.push("rx_cost=" + parameter.cost);
             }
+            if (parameter.text != undefined && parameter.text != "") {
+                searchQueryParameters.push("rx_text=" + parameter.text);
+            }
             if (searchQueryParameters.length <= 0) {
                 throw new Error("CardSearchEmptyParameters");
             }
             let searchUrl = this.urls.cards + "query/?" + searchQueryParameters.join("&");
+            console.log(`CardService.searchCards action='CallServer'`);
             return this.http
                 .get(searchUrl)
                 .map(res => res.json())
@@ -67,6 +70,7 @@ export class CardService {
 export interface CardSearch {
     index: string;
     expansion: any;
+    text: string;
     cost: string;
     type: string;
     name: string;

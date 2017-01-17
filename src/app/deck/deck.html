@@ -14,7 +14,7 @@
                         </div>
                         <img class="card-img searchResultsDeckImg" src="/api/assets/{{searchItem.idAsset}}" [class.show50]="searchItem.inventoryCard.quantity <= 0"
                         />
-                        <img class="card-img" ngShow="false" ngSrc="/web/app/assets/images/magic_card.jpg" />
+                        <img class="card-img" ngShow="false" ngSrc="/assets/img/magic_card.jpg" />
                         <div class="actionOverlay card-img-overlay">
                             <div class="cardDetailsDeck center-block">
                                 <div class="cardQtdLabel" [class.text-warning]="isChangedCardQuantity(searchItem)" [class.text-danger]="getCardQuantity(searchItem) <= 0">
@@ -28,6 +28,9 @@
                                     </button>
                                     <button class="action btn btn-secondary" (click)="showCard(searchItem)">
                                         <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="action btn btn-secondary" (click)="showCardOnLigaMagic(searchItem)">
+                                        <i class="fa fa-cart-plus"></i>
                                     </button>
                                 </div>
                             </div>
@@ -127,6 +130,9 @@
                                     </button>
                                     <button class="action btn btn-secondary" (click)="showCard(deckItem)">
                                         <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="action btn btn-secondary" (click)="showCardOnLigaMagic(deckItem)">
+                                        <i class="fa fa-cart-plus"></i>
                                     </button>
                                 </div>
                             </div>
