@@ -52,6 +52,10 @@ body {
     padding: 5px;
 }
 
+.card-pop-header {
+    padding: 0.25rem 1.0rem;
+}
+
 .expansionFrame {
     width: 100%;
     padding: 5px;
@@ -73,7 +77,10 @@ body {
 
 .cardDetails {
     margin: auto;
+    width: 90%;
+    /*margin-top: 0px;*/
 }
+
 
 .hide {
     opacity: 0;
@@ -178,6 +185,13 @@ body {
     margin-top: 5px;
     margin-bottom: 5px;
     height: 230px;
+    /*width: 223px;*/
+}
+
+.card-img-lg {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 311px;
     /*width: 223px;*/
 }
 

@@ -1,0 +1,42 @@
+<div class="searchResultsItem col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"> 
+    <div class="cardFrame card text-xs-center">
+        <div class="card-header text-xs-center">
+            <span class="searchResultsItemTitle"><strong>{{card.name}}</strong></span>
+            <img src="/api/assets/{{card.expansion.idAsset}}" style="height: 18px; vertical-align: middle;" />
+        </div>
+        <img id="{{componentId}}" class="card-img searchResultsDeckImg" src="/api/assets/{{card.idAsset}}" 
+             [class.show50]="card.deckCard.quantity <= 0" />
+        <img class="card-img" ngShow="false" ngSrc="/web/app/assets/images/magic_card.jpg" />
+        <div id="{{'container' + cardComponentId}}" class="actionOverlay card-img-overlay">
+            <div class="cardDetails center-block">
+                <div class="cardQtdLabel" 
+                    [class.text-danger]="card.inventoryCard.quantity <= 0" 
+                    [class.text-success]="card.deckCard.quantity > 0 && card.inventoryCard.quantity >= card.deckCard.quantity"
+                    [class.text-warning]="card.inventoryCard.quantity > 0 && card.inventoryCard.quantity < card.deckCard.quantity">
+                    {{getComponentLabel()}}
+                </div>
+                <div class="row-fluid actionPanel hide" (mouseout)="hidePop()">
+                    <button class="col-xs-4 action btn btn-secondary" (click)="decrease()" *ngIf="decreaseOn">
+                        <i class="fa fa-minus-circle"></i>
+                    </button>
+                    <button class="col-xs-4 action btn btn-secondary" (click)="increase()" *ngIf="increaseOn">
+                        <i class="fa fa-plus-circle"></i>
+                    </button>
+                    <button class="col-xs-4 action btn btn-secondary" (click)="remove()" *ngIf="removeOn">
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                    <button class="col-xs-4 action btn btn-secondary" (click)="changeBoard()" *ngIf="changeBoardOn && card?.deckCard?.idBoard > 0">
+                        <i class="fa fa-level-down" *ngIf="card.deckCard.idBoard == 1"></i>
+                        <i class="fa fa-level-up" *ngIf="card.deckCard.idBoard == 2"></i>
+                    </button>
+                    <button class="col-xs-4 action btn btn-secondary" (click)="showPop()" *ngIf="showPopOn">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button class="col-xs-4 action btn btn-secondary" (click)="shopping()" *ngIf="shoppingOn">
+                        <i class="fa fa-cart-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

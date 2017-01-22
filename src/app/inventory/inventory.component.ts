@@ -56,7 +56,6 @@ export class Inventory implements OnInit {
 
     applyListExpansionsResults(results) {
         this.model.expansions = results;
-        console.log(`InventoryInit Expansions=${this.model.expansions}`);
     }
 
     addExpansionParameter(expansion) {

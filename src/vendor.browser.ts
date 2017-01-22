@@ -6,6 +6,8 @@
 // TODO(gdi2290): switch to DLLs
 
 // Angular 2
+import '../../../../node_modules/tether/dist/js/tether.min.js';
+import '../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
 import '@angular/core';

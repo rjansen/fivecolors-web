@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Board, DeckService } from '../services/index';
 import { ValuesPipe, FilterPipe } from "../pipes/index"
 
+var $ = require('jquery');
 
 @Component({
     selector: 'deck',
@@ -60,7 +61,7 @@ export class Deck implements OnInit {
 
     analyseDeckName(event: KeyboardEvent) {
         if (event.keyCode == 9) {
-            var deckNameSearchRx = (<HTMLInputElement>event.target).value;
+            var deckNameSearchRx = (<any>event.target).value;
             if (deckNameSearchRx.length > 2) {
                 console.log(`DeckNameSearchRx=${deckNameSearchRx}`);
                 this.list(deckNameSearchRx);
@@ -141,24 +142,6 @@ export class Deck implements OnInit {
         }
     }
 
-    getDeckItemLabel(deckItem): string {
-        if (deckItem.inventoryCard.quantity <= 0 || deckItem.inventoryCard.quantity >= deckItem.deckCard.quantity) {
-            return deckItem.deckCard.quantity.toString();
-        } else {
-            return `${deckItem.inventoryCard.quantity}/${deckItem.deckCard.quantity}`;
-        }
-    }
-
-    showCardOnLigaMagic(card) {
-        console.log("ShowCardOnLigaMagic=" + card);
-        var win = window.open(`http://ligamagic.com.br/?view=cards%2Fsearch&card=${encodeURIComponent(card.name).replace(/'/g, "%27")}`, '_blank');
-        win.focus();
-    }
-
-    showCard(card) {
-        console.log("ShowCard=" + card);
-    }
-
     removeCard(card) {
         var deckCard = this.getDeckCard(this.model.selectedBoard, card.id);
         if (deckCard == undefined) {
@@ -178,6 +161,36 @@ export class Deck implements OnInit {
                 deckCard.deckCard.quantity -= 1;
             }
         }
+    }
+
+    changeBoard(card) {
+        console.log(`ChangeCardBoard Board=${card.deckCard.idBoard} Card=${card.name}`);
+        if (card.deckCard.quantity <= 0) {
+            return
+        }
+        var targetBoard = card.deckCard.idBoard == Board.Main ? Board.Side : Board.Main;
+        var cardRef = this.getDeckCard(card.deckCard.idBoard, card.id);
+        var deckCard = this.getDeckCard(targetBoard, card.id);
+        if (deckCard == undefined) {
+            deckCard = {
+                id: card.id,
+                name: card.name,
+                expansion: card.expansion,
+                idAsset: card.idAsset,
+                deckCard: {
+                    quantity: 1,
+                    idBoard: targetBoard
+                },
+                inventoryCard: {
+                    quantity: card.inventoryCard.quantity
+                }
+            };
+            this.deck.cards.push(deckCard);
+        } else {
+            deckCard.deckCard.quantity += 1;
+        }
+        cardRef.deckCard.quantity -= 1;
+        console.log(`BoardChanged=${targetBoard} Card=${card.name} Ref=${JSON.stringify(cardRef)} DeckCard=${JSON.stringify(deckCard)}`);
     }
 
     addCard(card) {

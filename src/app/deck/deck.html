@@ -6,37 +6,12 @@
         </div>
         <div class="row content">
             <div class="searchResultsBody col-xs-12" style="padding: 0px;">
-                <div class="searchResultsItem col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let searchItem of model.searchResults">
-                    <div class="cardFrame card text-xs-center">
-                        <div class="card-header text-xs-center">
-                            <span class="searchResultsItemTitle"><strong>{{searchItem.name}}</strong></span>
-                            <img src="/api/assets/{{searchItem.expansion.idAsset}}" style="height: 18px; vertical-align: middle;" />
-                        </div>
-                        <img class="card-img searchResultsDeckImg" src="/api/assets/{{searchItem.idAsset}}" [class.show50]="searchItem.inventoryCard.quantity <= 0"
-                        />
-                        <img class="card-img" ngShow="false" ngSrc="/assets/img/magic_card.jpg" />
-                        <div class="actionOverlay card-img-overlay">
-                            <div class="cardDetailsDeck center-block">
-                                <div class="cardQtdLabel" [class.text-warning]="isChangedCardQuantity(searchItem)" [class.text-danger]="getCardQuantity(searchItem) <= 0">
-                                    {{getCardQuantity(searchItem)}}</div>
-                                <div class="actionPanel hide">
-                                    <button class="action btn btn-secondary" (click)="removeCard(searchItem)">
-                                        <i class="fa fa-minus-circle"></i>
-                                    </button>
-                                    <button class="action btn btn-secondary" (click)="addCard(searchItem)">
-                                        <i class="fa fa-plus-circle"></i>
-                                    </button>
-                                    <button class="action btn btn-secondary" (click)="showCard(searchItem)">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button class="action btn btn-secondary" (click)="showCardOnLigaMagic(searchItem)">
-                                        <i class="fa fa-cart-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <card *ngFor="let searchItem of model.searchResults" 
+                      [label]="getCardQuantity(searchItem)"
+                      [increaseOn]="true" [decreaseOn]="true"
+                      (onDecrease)="removeCard($event)" (onIncrease)="addCard($event)" 
+                      [card]="searchItem">
+                </card>
             </div>
         </div>
     </div>
@@ -100,45 +75,23 @@
                     *ngIf="deck.cards != undefined" (click)="model.selectedBoard = 2">
                     Side <span class="badge">{{calculateSideCardsSize() + "/" + (deck.cards | filter:"deckCard.idBoard":2).length}}</span>
                 </button>
+                <button type="button" class="btn btn-outline-warning" style="pading: 5px; font-size: 12px;" [class.active]="model.selectedBoard == 3" 
+                    *ngIf="deck.cards != undefined" (click)="model.selectedBoard = 3">
+                    <i class="fa fa-line-chart"></i>
+                </button>
             </div>
         </div>
         <div class="row content">
-            <div class="searchResultsBodyDeck col-xs-12" style="padding: 0px;">
-                <div class="searchResultsItem col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let deckItem of deck.cards | filter:'deckCard.idBoard':model.selectedBoard">
-                    <div class="cardFrame card text-xs-center">
-                        <div class="card-header text-xs-center">
-                            <span class="searchResultsItemTitle"><strong>{{deckItem.name}}</strong></span>
-                            <img src="/api/assets/{{deckItem.expansion.idAsset}}" style="height: 18px; vertical-align: middle;" />
-                        </div>
-                        <img class="card-img searchResultsDeckImg" src="/api/assets/{{deckItem.idAsset}}" [class.show50]="deckItem.deckCard.quantity <= 0"
-                        />
-                        <img class="card-img" ngShow="false" ngSrc="/web/app/assets/images/magic_card.jpg" />
-                        <div class="actionOverlay card-img-overlay">
-                            <div class="cardDetailsDeck center-block">
-                                <div class="cardQtdLabel" [class.text-danger]="deckItem.inventoryCard.quantity <= 0" [class.text-success]="deckItem.deckCard.quantity > 0 && deckItem.inventoryCard.quantity >= deckItem.deckCard.quantity"
-                                    [class.text-warning]="deckItem.inventoryCard.quantity > 0 && deckItem.inventoryCard.quantity < deckItem.deckCard.quantity">
-                                    {{getDeckItemLabel(deckItem)}}</div>
-                                <div class="actionPanel hide">
-                                    <button class="action btn btn-secondary" (click)="removeCard(deckItem)">
-                                        <i class="fa fa-minus-circle"></i>
-                                    </button>
-                                    <button class="action btn btn-secondary" (click)="addCard(deckItem)">
-                                        <i class="fa fa-plus-circle"></i>
-                                    </button>
-                                    <button class="action btn btn-secondary" (click)="removeDeckItem(deckItem)">
-                                        <i class="fa fa-times-circle"></i>
-                                    </button>
-                                    <button class="action btn btn-secondary" (click)="showCard(deckItem)">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button class="action btn btn-secondary" (click)="showCardOnLigaMagic(deckItem)">
-                                        <i class="fa fa-cart-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="searchResultsBodyDeck col-xs-12" style="padding: 0px;" *ngIf="model.selectedBoard == 1 || model.selectedBoard == 2">
+                <card *ngFor="let deckItem of deck.cards | filter:'deckCard.idBoard':model.selectedBoard" 
+                      [decreaseOn]="true" [increaseOn]="true" [removeOn]="true" [changeBoardOn]="true"
+                      (onDecrease)="removeCard($event)" (onIncrease)="addCard($event)" 
+                      (onRemove)="removeDeckItem($event)" (onChangeBoard)="changeBoard($event)"
+                      [card]="deckItem">
+                </card>
+            </div>
+            <div class="deckStatsPanel col-xs-12" style="padding: 0px;" *ngIf="model.selectedBoard == 3">
+                My Graphic lkkkkkk!!!
             </div>
         </div>
     </div>

@@ -18,7 +18,6 @@ export class ExpansionService {
     listExpansions(parameter:ExpansionSearch): Observable<any> {
         if (!parameter.isMock) {
             let listUrl = this.urls.expansions;
-            console.log(`ListExpansions url=${listUrl}`);
             return this.http
                 .get(listUrl)
                 .map(res => res.json())
