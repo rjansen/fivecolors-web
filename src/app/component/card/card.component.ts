@@ -10,7 +10,7 @@ import '../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 @Component({
     selector: 'card',
     templateUrl: './card.html',
-    styles: [
+    styleUrls: [
         './card.css'
     ]
 })

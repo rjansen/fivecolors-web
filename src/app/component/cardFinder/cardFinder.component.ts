@@ -6,7 +6,7 @@ import { ValuesPipe, FilterPipe } from "../../pipes/index"
 @Component({
     selector: 'card-finder',
     templateUrl: './cardFinder.html',
-    styles: [
+    styleUrls: [
         './cardFinder.css'
     ]
 })

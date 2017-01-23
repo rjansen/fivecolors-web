@@ -3,13 +3,16 @@ import { ActivatedRoute, Params } from '@angular/router';
 //import {Observable} from 'rxjs/Observable';
 import { Board, DeckService } from '../services/index';
 import { ValuesPipe, FilterPipe } from "../pipes/index"
+import { Line, Bar, Pie } from 'chartist';
 
 var $ = require('jquery');
 
 @Component({
     selector: 'deck',
     templateUrl: './deck.html',
-    styleUrls: [ './deck.css' ]
+    styleUrls: [
+         './deck.css' 
+    ]
 })
 export class Deck implements OnInit {
     //public searchResults = [];
@@ -44,6 +47,146 @@ export class Deck implements OnInit {
         private deckService: DeckService
     ) { }
 
+    generateDeckStatistics() {
+        console.log(`GeneratingDeckStatistics Deck=${this.deck.name}`);
+        var types = { 
+            creature: 1,
+            artifact: 2,
+            enchantment: 3,
+            instant: 4,
+            sorcery: 5,
+            planeswalker: 6,
+            land: 7
+        }
+        var deckCostSet = {}
+        var typesChartData = {
+            labels: [],
+            series: []
+        }
+        
+        for (let card of this.deck.cards) {
+            if (card.deckCard.idBoard != Board.Main) {
+                continue;    
+            }    
+            if (card.manacostLabel.trim().length > 0) {
+                var convertedManacost = 0;   
+                card.manacostLabel.split(', ').forEach((value, idx) => {
+                    if (value.match(/\d+/g)) {
+                        convertedManacost += parseFloat(value);
+                    } else {
+                        convertedManacost += 1;
+                    }
+                    console.log(`ForEachManacostLabel IsNumber=${value.match(/\d+/g)} ConvertedManaCost=${convertedManacost} Manacost='${card.manacostLabel}' Value='${value}' Idx=${idx}`);
+                });
+                if (convertedManacost in deckCostSet) {
+                    deckCostSet[convertedManacost] += card.deckCard.quantity;
+                } else if (!card.typeLabel.match(/land/ig)) {
+                    deckCostSet[convertedManacost] = card.deckCard.quantity;
+                }
+            }
+            var addToData = (key, card) => {
+                var idx = typesChartData.labels.indexOf(key);
+                if (idx >= 0) {
+                    typesChartData.series[idx] += card.deckCard.quantity;
+                } else {
+                    typesChartData.labels.push(key);
+                    typesChartData.series.push(card.deckCard.quantity);
+                }
+            }
+            if (card.typeLabel.match(/creature/ig)) {
+                addToData('Creature', card);
+            }
+            if (card.typeLabel.match(/artifact/ig)) {
+                addToData('Artifact', card);
+            }
+            if (card.typeLabel.match(/enchantment/ig)) {
+                addToData('Enchantment', card);
+            }
+            if (card.typeLabel.match(/instant/ig)) {
+                addToData('Instant', card);
+            }
+            if (card.typeLabel.match(/sorcery/ig)) {
+                addToData('Sorcery', card);
+            }
+            if (card.typeLabel.match(/planeswalker/ig)) {
+                addToData('Planeswalker', card);
+            }
+            if (card.typeLabel.match(/land/ig)) {
+                addToData('Land', card);
+            }
+        }
+        console.log(`DeckManaCostSet Deck=${this.deck.name} ManaCostSet=${JSON.stringify(deckCostSet)}`);
+        var ordDeckCostSet = Object.keys(deckCostSet).sort((n1, n2) => parseFloat(n1) - parseFloat(n2));
+        console.log(`OrderedDeckManaCostSet Deck=${this.deck.name} ManaCostSet=${JSON.stringify(ordDeckCostSet)}`);
+
+        var data = {
+            labels: [],
+            series: [[]]
+        }
+        for (let key of ordDeckCostSet) {
+            console.log(`AddDiminesionToChart Deck=${this.deck.name} Dimension=${key}=${deckCostSet[key]}`);
+            data.labels.push(key);
+            data.series[0].push(deckCostSet[key]);
+        }
+        new Bar('#barDeckChart', data,
+            {
+                // distributeSeries: true,
+                low: 0,
+                high: 20,
+                stackBars: true,
+                horizontalBars: false,
+                seriesBarDistance: 10,
+                axisX: {
+                    onlyInteger: true,
+                    scaleMinSpace: 5
+                    // On the x-axis start means top and end means bottom
+                    // position: 'start'
+                    // labelOffset: 10
+                    // offset: 80
+                },
+                axisY: {
+                    onlyInteger: true,
+                    // On the y-axis start means left and end means right
+                    // position: 'end',
+                    // scaleMinSpace: 20
+                },
+            }
+        );
+        var responsiveOptions = [
+            ['screen and (min-width: 640px)', {
+                chartPadding: 30,
+                labelOffset: 100,
+                labelDirection: 'explode',
+                labelInterpolationFnc: (value) => {
+                    return value;
+                }
+            }],
+            ['screen and (min-width: 1024px)', {
+                labelOffset: 80,
+                chartPadding: 20
+            }]
+        ];
+        var sum = (a, b) => { return a + b };
+
+        new Pie('#pieDeckChart', typesChartData, 
+            {
+                labelPosition: 'outside',
+                showLabel: true,
+                total: 60,
+                chartPadding: 20,
+                labelOffset: -43,
+                labelDirection: 'explode',
+                labelInterpolationFnc: (key) => {
+                    var idx = typesChartData.labels.indexOf(key);
+                    var value = typesChartData.series[idx];
+                    var result =   `${key} ${Math.round(value / typesChartData.series.reduce(sum) * 100)}%`;
+                    console.log(`labelInterpolationFnc Result=${result} Value=${value} Reduce=${sum} Series=${data.series}`);
+                    return result
+                }
+            }
+        );
+        this.model.selectedBoard = 3
+    }
 
     logFindResult(result: any[]) {
         // console.log(`LogFindResult result=${result}`);

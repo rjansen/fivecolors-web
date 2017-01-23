@@ -67,16 +67,16 @@
                 </div>
             </form>
             <div class="searchResultsHead btn-group" role="group" style="margin-top: 5px; margin-bottom: 5px;">
-                <button type="button" class="btn btn-outline-primary" style="pading: 5px; font-size: 12px;" [class.active]="model.selectedBoard == 1"
+                <button type="button" [disabled]="deck?.cards.length <= 0" class="btn btn-outline-primary" style="pading: 5px; font-size: 12px;" [class.active]="model.selectedBoard == 1"
                     *ngIf="deck.cards != undefined" (click)="model.selectedBoard = 1">
                     Main <span class="badge">{{calculateMainCardsSize() + "/" + (deck.cards | filter:"deckCard.idBoard":1).length}}</span>
                 </button>
-                <button type="button" class="btn btn-outline-info" style="pading: 5px; font-size: 12px;" [class.active]="model.selectedBoard == 2"
+                <button type="button" [disabled]="deck?.cards.length <= 0" class="btn btn-outline-info" style="pading: 5px; font-size: 12px;" [class.active]="model.selectedBoard == 2"
                     *ngIf="deck.cards != undefined" (click)="model.selectedBoard = 2">
                     Side <span class="badge">{{calculateSideCardsSize() + "/" + (deck.cards | filter:"deckCard.idBoard":2).length}}</span>
                 </button>
-                <button type="button" class="btn btn-outline-warning" style="pading: 5px; font-size: 12px;" [class.active]="model.selectedBoard == 3" 
-                    *ngIf="deck.cards != undefined" (click)="model.selectedBoard = 3">
+                <button type="button" [disabled]="deck?.cards.length <= 0" class="btn btn-outline-warning" style="pading: 5px; font-size: 12px;" [class.active]="model.selectedBoard == 3" 
+                    *ngIf="deck.cards != undefined" (click)="generateDeckStatistics()">
                     <i class="fa fa-line-chart"></i>
                 </button>
             </div>
@@ -90,8 +90,11 @@
                       [card]="deckItem">
                 </card>
             </div>
-            <div class="deckStatsPanel col-xs-12" style="padding: 0px;" *ngIf="model.selectedBoard == 3">
-                My Graphic lkkkkkk!!!
+            <div class="deckStatsPanel col-xs-12 hide" style="padding: 0px;" [class.show]="model.selectedBoard == 3">
+                <h3>Converted Mana Cost</h3>
+                <div id="barDeckChart" class="char-label-vertical ct-chart ct-perfect-fourth"></div>
+                <h3>Card By Type %</h3>
+                <div id="pieDeckChart" class="ct-chart ct-perfect-fourth"></div>
             </div>
         </div>
     </div>
