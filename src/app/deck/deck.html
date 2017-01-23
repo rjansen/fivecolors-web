@@ -91,10 +91,12 @@
                 </card>
             </div>
             <div class="deckStatsPanel col-xs-12" [style.display]="model.selectedBoard == 3 ? 'block' : 'none'">
-                <h3>Converted Mana Cost</h3>
-                <div id="barDeckChart" class="char-label-vertical ct-chart ct-perfect-fourth"></div>
-                <h3>Card By Type %</h3>
-                <div id="pieDeckChart" class="ct-chart ct-perfect-fourth"></div>
+                <h4>Converted Mana Cost</h4>
+                <div id="lineDeckChart" class="line-stats-chart ct-chart ct-perfect-fourth"></div>
+                <h4>Card By Type</h4>
+                <div id="barDeckChart" class="bar-stats-chart ct-chart ct-perfect-fourth"></div>
+                <h4>Card By Type %</h4>
+                <div id="pieDeckChart" class="pie-stats-chart ct-chart ct-perfect-fourth"></div>
             </div>
         </div>
     </div>

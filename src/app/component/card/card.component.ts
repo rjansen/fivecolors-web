@@ -127,7 +127,6 @@ export class Card implements OnInit {
     }
 
     hidePop() {
-        console.log(`HideCard Card=${this.card.name}`);
         var cardComponent = ($(`#${this.componentId}`) as any)
         cardComponent.popover('dispose');
         this.state.popOpen = false;

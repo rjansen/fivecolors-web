@@ -48,7 +48,6 @@ export class Deck implements OnInit, OnChanges {
     ) { }
 
     generateDeckStatistics() {
-        console.log(`GeneratingDeckStatistics Deck=${this.deck.name}`);
         var types = { 
             creature: 1,
             artifact: 2,
@@ -76,7 +75,6 @@ export class Deck implements OnInit, OnChanges {
                     } else {
                         convertedManacost += 1;
                     }
-                    console.log(`ForEachManacostLabel IsNumber=${value.match(/\d+/g)} ConvertedManaCost=${convertedManacost} Manacost='${card.manacostLabel}' Value='${value}' Idx=${idx}`);
                 });
                 if (convertedManacost in deckCostSet) {
                     deckCostSet[convertedManacost] += card.deckCard.quantity;
@@ -115,30 +113,27 @@ export class Deck implements OnInit, OnChanges {
                 addToData('Land', card);
             }
         }
-        console.log(`DeckManaCostSet Deck=${this.deck.name} ManaCostSet=${JSON.stringify(deckCostSet)}`);
         var ordDeckCostSet = Object.keys(deckCostSet).sort((n1, n2) => parseFloat(n1) - parseFloat(n2));
-        console.log(`OrderedDeckManaCostSet Deck=${this.deck.name} ManaCostSet=${JSON.stringify(ordDeckCostSet)}`);
-
         var data = {
             labels: [],
             series: [[]]
         }
         for (let key of ordDeckCostSet) {
-            console.log(`AddDiminesionToChart Deck=${this.deck.name} Dimension=${key}=${deckCostSet[key]}`);
             data.labels.push(key);
             data.series[0].push(deckCostSet[key]);
         }
-        new Bar('#barDeckChart', data,
+        new Line('#lineDeckChart', data,
             {
                 // distributeSeries: true,
                 low: 0,
-                high: 20,
-                stackBars: true,
-                horizontalBars: false,
-                seriesBarDistance: 10,
+                high: 15,
+                showArea: true,
+                // stackBars: true,
+                // horizontalBars: false,
+                // seriesBarDistance: 10,
                 axisX: {
                     onlyInteger: true,
-                    scaleMinSpace: 5
+                    // scaleMinSpace: 5
                     // On the x-axis start means top and end means bottom
                     // position: 'start'
                     // labelOffset: 10
@@ -152,20 +147,37 @@ export class Deck implements OnInit, OnChanges {
                 },
             }
         );
-        var responsiveOptions = [
-            ['screen and (min-width: 640px)', {
-                chartPadding: 30,
-                labelOffset: 100,
-                labelDirection: 'explode',
-                labelInterpolationFnc: (value) => {
-                    return value;
-                }
-            }],
-            ['screen and (min-width: 1024px)', {
-                labelOffset: 80,
-                chartPadding: 20
-            }]
-        ];
+
+         new Bar('#barDeckChart', 
+            {
+                labels: typesChartData.labels,
+                series: [typesChartData.series]
+            },
+            {
+                // distributeSeries: true,
+                low: 0,
+                high: 25,
+                // stackBars: false,
+                // distributeSeries: true,
+                // horizontalBars: false,
+                // seriesBarDistance: 1,
+                axisX: {
+                    onlyInteger: true,
+                    // scaleMinSpace: 5
+                    // On the x-axis start means top and end means bottom
+                    // position: 'start'
+                    // labelOffset: 10
+                    // offset: 80
+                },
+                axisY: {
+                    onlyInteger: true,
+                    // On the y-axis start means left and end means right
+                    // position: 'end',
+                    // scaleMinSpace: 20
+                },
+            }
+        ); 
+
         var sum = (a, b) => { return a + b };
 
         new Pie('#pieDeckChart', typesChartData, 
@@ -180,7 +192,6 @@ export class Deck implements OnInit, OnChanges {
                     var idx = typesChartData.labels.indexOf(key);
                     var value = typesChartData.series[idx];
                     var result =   `${key} ${Math.round(value / typesChartData.series.reduce(sum) * 100)}%`;
-                    console.log(`labelInterpolationFnc Result=${result} Value=${value} Reduce=${sum} Series=${data.series}`);
                     return result
                 }
             }
@@ -204,15 +215,6 @@ export class Deck implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         console.log(`ngOnChanges Changes=${changes}`);
-        for (let propName in changes) {
-            let chng = changes[propName];
-            let cur  = JSON.stringify(chng.currentValue);
-            let prev = JSON.stringify(chng.previousValue);
-            console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-            if (propName == 'selectedBoard' && chng.currentValue == 3) {
-                this.generateDeckStatistics();
-            }
-        }
     }
 
     analyseDeckName(event: KeyboardEvent) {
@@ -320,7 +322,6 @@ export class Deck implements OnInit, OnChanges {
     }
 
     changeBoard(card) {
-        console.log(`ChangeCardBoard Board=${card.deckCard.idBoard} Card=${card.name}`);
         if (card.deckCard.quantity <= 0) {
             return
         }
@@ -346,7 +347,6 @@ export class Deck implements OnInit, OnChanges {
             deckCard.deckCard.quantity += 1;
         }
         cardRef.deckCard.quantity -= 1;
-        console.log(`BoardChanged=${targetBoard} Card=${card.name} Ref=${JSON.stringify(cardRef)} DeckCard=${JSON.stringify(deckCard)}`);
     }
 
     addCard(card) {
@@ -558,7 +558,6 @@ export class Deck implements OnInit, OnChanges {
 
     applyListDeckResults(results) {
         this.model.finding = false;
-        console.log(JSON.stringify(results));
         if (results != undefined) {
             this.model.decks = results;
         } else {
