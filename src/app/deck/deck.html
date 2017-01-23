@@ -90,7 +90,7 @@
                       [card]="deckItem">
                 </card>
             </div>
-            <div class="deckStatsPanel col-xs-12 hide" style="padding: 0px;" [class.show]="model.selectedBoard == 3">
+            <div class="deckStatsPanel col-xs-12" [style.display]="model.selectedBoard == 3 ? 'block' : 'none'">
                 <h3>Converted Mana Cost</h3>
                 <div id="barDeckChart" class="char-label-vertical ct-chart ct-perfect-fourth"></div>
                 <h3>Card By Type %</h3>

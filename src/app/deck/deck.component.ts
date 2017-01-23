@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 //import {Observable} from 'rxjs/Observable';
 import { Board, DeckService } from '../services/index';
@@ -14,7 +14,7 @@ var $ = require('jquery');
          './deck.css' 
     ]
 })
-export class Deck implements OnInit {
+export class Deck implements OnInit, OnChanges {
     //public searchResults = [];
     public parameter = {
         index: undefined,
@@ -200,6 +200,19 @@ export class Deck implements OnInit {
 
     ngOnInit() {
         this.listExpansions();
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        console.log(`ngOnChanges Changes=${changes}`);
+        for (let propName in changes) {
+            let chng = changes[propName];
+            let cur  = JSON.stringify(chng.currentValue);
+            let prev = JSON.stringify(chng.previousValue);
+            console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+            if (propName == 'selectedBoard' && chng.currentValue == 3) {
+                this.generateDeckStatistics();
+            }
+        }
     }
 
     analyseDeckName(event: KeyboardEvent) {
