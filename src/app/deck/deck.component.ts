@@ -48,6 +48,7 @@ export class Deck implements OnInit, OnChanges {
     ) { }
 
     generateDeckStatistics() {
+        console.log(`GeneratingDeckStatistics DeckId=${this.deck.id}`);
         var types = { 
             creature: 1,
             artifact: 2,
@@ -122,6 +123,7 @@ export class Deck implements OnInit, OnChanges {
             data.labels.push(key);
             data.series[0].push(deckCostSet[key]);
         }
+        console.log(`GeneratingGraphs DeckId=${this.deck.id} CostData=${JSON.stringify(data)} TypesData=${JSON.stringify(typesChartData)}`);
         new Line('#lineDeckChart', data,
             {
                 // distributeSeries: true,
@@ -357,6 +359,8 @@ export class Deck implements OnInit, OnChanges {
                 name: card.name,
                 expansion: card.expansion,
                 idAsset: card.idAsset,
+                manacostLabel: card.manacostLabel,
+                typeLabel: card.typeLabel,
                 deckCard: {
                     quantity: 1,
                     idBoard: this.model.selectedBoard
@@ -439,7 +443,7 @@ export class Deck implements OnInit, OnChanges {
 
     searchOnNewPage() {
         this.model.querying = true;
-        setTimeout(() => this.model.querying = false, 5000); // 5 seconds
+        // setTimeout(() => this.model.querying = false, 5000); // 5 seconds
         this.deckService.searchCards(this.parameter)
             .subscribe(
             data => this.applyNewSearchResults(data),
@@ -478,13 +482,21 @@ export class Deck implements OnInit, OnChanges {
         this.update()
     }
 
+    deleteDeck() {
+        console.log(`DeleteDeck: DeckID=${this.deck.id}`);
+        this.model.updating = true;
+        this.deckService.deleteDeck(this.deck.id)
+            .subscribe(
+            response => this.applyDeleteResponse(response),
+            error => this.logError(error));
+    }
+
     closeDeck() {
         this.deck = {id: undefined, name: undefined, cards: []};
     }
 
     update() {
         this.model.updating = true;
-        setTimeout(() => this.model.updating = false, 5000); // 5 seconds
         var deckUpdate = {
             id: this.deck.id == "" ? undefined : this.deck.id,
             name: this.deck.name,
@@ -512,12 +524,19 @@ export class Deck implements OnInit, OnChanges {
     applyUpdateResponse(response) {
         this.model.updating = false
         console.log("ApplyUpdateStatus=" + JSON.stringify(response));
-        if (response.status == 201 || response.status == 202) {
-            if (response.status == 201) {
-                this.deck.id = parseInt(response.text(), 10);
-            }
+        if (response.status == 201) {
+            this.deck.id = parseInt(response.text(), 10);
         }
     }
+
+    applyDeleteResponse(response) {
+        this.model.updating = false
+        console.log("ApplyDeleteStatus=" + JSON.stringify(response));
+        if (response.status == 200) {
+            this.closeDeck();
+        }
+    }
+
 
     find() {
         this.model.finding = true;

@@ -37,11 +37,19 @@ export class DeckService {
             .catch(this.handleError);
     }
 
+    deleteDeck(deckId: number) {
+        let headers = new Headers({ 'Accept': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http
+            .delete(this.urls.decks, options)
+            .catch(this.handleError);
+    }
+
     findDeck(deckId: number) {
         if (deckId == undefined || deckId <= 0) {
             throw Error(`DeckFindRequiredFieldsError: DeckId=${deckId}`);
         }
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Accept': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http
             .get(this.urls.decks + deckId, options)
@@ -65,7 +73,7 @@ export class DeckService {
         if (deckNameRx == undefined) {
             throw Error(`DeckListRequiredFieldsError: DeckNameRx=${deckNameRx}`);
         }
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Accpet': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http
             .get(this.urls.decks + `query/?rx_name=${encodeURIComponent(deckNameRx)}`, options)

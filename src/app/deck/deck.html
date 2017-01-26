@@ -46,8 +46,8 @@
                 </div>
                 <div class="col-xs-3 actionColumn parameterInputTop">
                     <button type="button" (click)="find()" [disabled]="(deck?.id == undefined || deck?.id == '') && (deck?.name == undefined || deck?.name == '')" class="imageBtn btn btn-secondary">
-                        <i class="fa fa-folder-open" *ngIf="!model.getting"></i>
-                        <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.getting"></i>
+                        <i class="fa fa-folder-open" *ngIf="!model.finding"></i>
+                        <i class="fa fa-circle-o-notch fa-spin" *ngIf="model.finding"></i>
                     </button>
                     <div class="updateDeckBtn btn-group">
                         <button type="submit" [disabled]="!postDeck.form.valid" class="imageBtn btn btn-secondary">
@@ -60,6 +60,7 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" (click)="copyDeck()">Copy as New</a>
+                            <a class="dropdown-item" (click)="deleteDeck()">Delete</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" (click)="closeDeck()">Close</a>
                         </div>
